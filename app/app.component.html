@@ -1,0 +1,18 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">
+      Hyperloop
+    </a>
+  </div>
+  <ul class="nav navbar-nav navbar-right">
+      <li role="presentation" class="active"><a [routerLink]="['/register']" routerLinkActive="active">Sign Up</a></li>
+      <li role="presentation"><a [routerLink]="['/new']" routerLinkActive="active">Login</a></li>
+    <li role="presentation"><a href="http://github.com/andela-gogbara/roh" target="_blank">GitHub</a></li>
+  </ul>
+  <!-- <ul class="nav navbar-nav navbar-right">
+      <li role="presentation" class="active"><a [routerLink]="['/bucketlists']" routerLinkActive="active">Welcome</a></li>
+  </ul> -->
+</div>
+</nav>
+<router-outlet></router-outlet>

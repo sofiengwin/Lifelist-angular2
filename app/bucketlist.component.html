@@ -1,0 +1,46 @@
+<div class="menu">
+    <div class="btns-group-vertical">
+      <a href="#" class="js-user-menu btn-secondary">
+          <span class="icon-arrow-up">jb</span>
+          <span class="icon-arrow-down"></span>
+
+      </a>
+        <a class="js-logout btn-secondary">Logout</a>
+    </div>
+    <div class="btns-group">
+      <a href="" class="btn-secondary">Sign In</a>
+      <a href="" class="btn-secondary">Join</a>
+    </div>
+
+  <div class="list-todos">
+    <a class="js-new-list link-list-new">
+      <span class="icon-plus"></span>
+      New Bucketlist
+    </a>
+      <ul class="bucketlists">
+        <li *ngFor="let bucketlist of bucketlists" (click)="onSelect(bucketlist)" [class.selected]="bucketlist == selectedBucketlist">
+          <span class="badge">{{bucketlist.id}}</span> {{bucketlist.name}}
+        </li>
+      </ul>
+  </div>
+</div>
+
+  <!-- <div class="notifications">
+    <div class="notification">
+      <span class="icon-sync"></span>
+      <div class="meta">
+        <div class="title-notification">Trying to connect</div>
+        <div class="description">There seems to be a connection issue</div>
+      </div>
+    </div>
+  </div>
+
+<div class="content-overlay"></div> -->
+
+<div class="col l6 content-container">
+  <ul *ngIf="selectedBucketlist">
+    <li *ngFor="let item of selectedBucketlist.items">
+      {{item.name}}
+    </li>
+  </ul>
+</div>
