@@ -10,9 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var bucketlist_service_1 = require("./bucketlist.service");
+var item_service_1 = require("./item.service");
 var BucketlistComponent = (function () {
-    function BucketlistComponent(bucketlistService) {
+    function BucketlistComponent(bucketlistService, itemService) {
         this.bucketlistService = bucketlistService;
+        this.itemService = itemService;
         this.mode = 'Observable';
         this.newItemForm = true;
         this.newBucketlistForm = true;
@@ -55,7 +57,7 @@ var BucketlistComponent = (function () {
         this.bucketlists.splice(deletedBucketlistIndex, 1);
     };
     BucketlistComponent.prototype.showEditForm = function (bucketlist) {
-        this.selectedBucketlis = bucketlist;
+        this.selectedBucketlist = bucketlist;
         this.newBucketlistForm = false;
     };
     //Items
@@ -65,7 +67,7 @@ var BucketlistComponent = (function () {
         if (!name) {
             return;
         }
-        this.bucketlistService.addItem(name, bucketlist)
+        this.itemService.addItem(name, bucketlist)
             .subscribe(function (item) { return _this.selectedBucketlist.items.push(item); }, function (error) { return _this.errorMessage = error; });
     };
     BucketlistComponent.prototype.editBucketlistItem = function (event, name, bucketlist, item) {
@@ -94,9 +96,9 @@ var BucketlistComponent = (function () {
         core_1.Component({
             selector: 'my-bucketlist',
             templateUrl: "app/bucketlist.component.html",
-            providers: [bucketlist_service_1.BucketlistService]
+            providers: [bucketlist_service_1.BucketlistService, item_service_1.ItemService]
         }), 
-        __metadata('design:paramtypes', [bucketlist_service_1.BucketlistService])
+        __metadata('design:paramtypes', [bucketlist_service_1.BucketlistService, item_service_1.ItemService])
     ], BucketlistComponent);
     return BucketlistComponent;
 }());

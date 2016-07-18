@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Bucketlist } from './bucketlist';
 import { Item } from "./item"
 import { BucketlistService } from "./bucketlist.service";
+import { ItemService } from "./item.service";
 
 
 
 @Component({
   selector: 'my-bucketlist',
   templateUrl: "app/bucketlist.component.html",
-  providers: [BucketlistService]
+  providers: [BucketlistService, ItemService]
 })
 
 export class BucketlistComponent implements OnInit {
-  constructor(private bucketlistService: BucketlistService) {
+  constructor(private bucketlistService: BucketlistService, private itemService: ItemService) {
     this.newItemForm = true;
     this.newBucketlistForm = true;
   };
@@ -69,7 +70,7 @@ export class BucketlistComponent implements OnInit {
   }
 
   showEditForm(bucketlist){
-    this.selectedBucketlis = bucketlist
+    this.selectedBucketlist = bucketlist
     this.newBucketlistForm = false;
 
   }
@@ -79,7 +80,7 @@ export class BucketlistComponent implements OnInit {
   addItem (event, name, bucketlist) {
     event.preventDefault()
     if (!name) { return; }
-    this.bucketlistService.addItem(name, bucketlist)
+    this.itemService.addItem(name, bucketlist)
                      .subscribe(
                        item  => this.selectedBucketlist.items.push(item),
                        error =>  this.errorMessage = <any>error);
