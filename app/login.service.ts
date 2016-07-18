@@ -27,8 +27,8 @@ export class UserService {
           localStorage.setItem('auth_token', res.auth_token);
           this.loggedIn = true;
         }
-        console.log(res)
-        return res.success;
+        // console.log(res)
+        return res;
       });
   }
 

@@ -30,8 +30,7 @@ var NewUserService = (function () {
                 localStorage.setItem('auth_token', res.auth_token);
                 _this.loggedIn = true;
             }
-            console.log(res);
-            return res.success;
+            return res;
         });
     };
     NewUserService.prototype.logout = function () {

@@ -11,19 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var core_2 = require('@angular/core');
 var http_1 = require('@angular/http');
+var router_1 = require('@angular/router');
+var core_3 = require('angular2-cookie/core');
 var login_service_1 = require("./login.service");
 // import { contentHeaders } from '../common/headers';
 var UserFormComponent = (function () {
-    function UserFormComponent(userService) {
+    function UserFormComponent(userService, _cookieService, router) {
         this.userService = userService;
+        this._cookieService = _cookieService;
+        this.router = router;
     }
     UserFormComponent.prototype.login = function (event, email, password) {
+        var _this = this;
         event.preventDefault();
         this.userService.login(email, password).subscribe(function (result) {
-            console.log(result);
             if (result) {
-                //  this.router.navigate(['bucketlists']);
-                window.location.href = "http://localhost:3000/bucketlist";
+                console.log(result);
+                _this._cookieService.putObject("auth", result);
+                _this.router.navigate(['bucketlist']);
             }
         });
     };
@@ -31,10 +36,11 @@ var UserFormComponent = (function () {
         core_1.Component({
             selector: 'hero-form',
             templateUrl: 'app/register.component.html',
-            providers: [http_1.HTTP_PROVIDERS, login_service_1.UserService]
+            directives: [router_1.ROUTER_DIRECTIVES],
+            providers: [http_1.HTTP_PROVIDERS, core_3.CookieService, login_service_1.UserService]
         }),
         core_2.Injectable(), 
-        __metadata('design:paramtypes', [login_service_1.UserService])
+        __metadata('design:paramtypes', [login_service_1.UserService, core_3.CookieService, router_1.Router])
     ], UserFormComponent);
     return UserFormComponent;
 }());

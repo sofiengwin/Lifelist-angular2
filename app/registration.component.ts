@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { NgForm }    from '@angular/forms';
 import { Headers } from '@angular/http';
 import { Http, HTTP_PROVIDERS } from '@angular/http';
+import { Router, ROUTER_DIRECTIVES } from '@angular/router';
+import {CookieService} from 'angular2-cookie/core';
 import { UserService } from "./login.service"
 
 // import { contentHeaders } from '../common/headers';
@@ -10,19 +12,20 @@ import { UserService } from "./login.service"
 @Component({
   selector: 'hero-form',
   templateUrl: 'app/register.component.html',
-  providers: [HTTP_PROVIDERS, UserService]
+  directives: [ROUTER_DIRECTIVES],
+  providers: [HTTP_PROVIDERS, CookieService, UserService]
 })
 
 @Injectable()
 export class UserFormComponent {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private _cookieService:CookieService, public router: Router) {}
     login(event, email, password){
       event.preventDefault();
       this.userService.login(email, password).subscribe((result) => {
-        console.log(result)
        if (result) {
-        //  this.router.navigate(['bucketlists']);
-         window.location.href="http://localhost:3000/bucketlist"
+         console.log(result)
+        this._cookieService.putObject("auth", result);
+        this.router.navigate(['bucketlist']);
        }
      });
     }

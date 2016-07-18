@@ -1,46 +1,86 @@
-<div class="menu">
-    <div class="btns-group-vertical">
-      <a href="#" class="js-user-menu btn-secondary">
-          <span class="icon-arrow-up">jb</span>
-          <span class="icon-arrow-down"></span>
 
-      </a>
-        <a class="js-logout btn-secondary">Logout</a>
+<div class="row container">
+  <div class="col-md-4 menu">
+    <div class="new-bucketlist" *ngIf="newBucketlistForm">
+      <form role="form" (submit)="addBucketlist($event, bucketlist.value)">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon" id="sizing-addon1">+</span>
+          <input type="text" #bucketlist class="form-control" id="bucketlist" placeholder="Add new bucketlist" aria-describedby="sizing-addon1">
+        </div>
+      </form>
     </div>
-    <div class="btns-group">
-      <a href="" class="btn-secondary">Sign In</a>
-      <a href="" class="btn-secondary">Join</a>
+    <div class="edit-bucketlist" id="editForm" *ngIf="selectedBucketlist && !newBucketlistForm">
+      <form role="form" (submit)="editBucketlist($event, bucket.value, selectedBucketlist)">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon" id="sizing-addon1">+</span>
+          <input [(ngModel)]= "selectedBucketlist.name" [ngModelOptions]="{standalone: true}" type="text" #bucket class="form-control" id="bucketlist" value="{{selectedBucketlist.name}}" aria-describedby="sizing-addon1">
+        </div>
+      </form>
     </div>
-
-  <div class="list-todos">
-    <a class="js-new-list link-list-new">
-      <span class="icon-plus"></span>
-      New Bucketlist
-    </a>
+    <div class="list-todos">
       <ul class="bucketlists">
-        <li *ngFor="let bucketlist of bucketlists" (click)="onSelect(bucketlist)" [class.selected]="bucketlist == selectedBucketlist">
-          <span class="badge">{{bucketlist.id}}</span> {{bucketlist.name}}
+        <li *ngFor="let bucketlist of bucketlists" (click)="onSelect(bucketlist)" (dblclick)="showEditForm(bucketlist)" [class.selected]="bucketlist == selectedBucketlist">
+          <div id="bucketlistDetail" class="bucketlist-details">
+            <div class="bucketlistName">
+              {{bucketlist.name}}
+              <span class="badge bucketlist-items-count">{{item_count(bucketlist)}}</span>
+            </div>
+          </div>
         </li>
       </ul>
-  </div>
-</div>
-
-  <!-- <div class="notifications">
-    <div class="notification">
-      <span class="icon-sync"></span>
-      <div class="meta">
-        <div class="title-notification">Trying to connect</div>
-        <div class="description">There seems to be a connection issue</div>
-      </div>
     </div>
   </div>
+
+
+  <!-- <div class="notifications">
+  <div class="notification">
+  <span class="icon-sync"></span>
+  <div class="meta">
+  <div class="title-notification">Trying to connect</div>
+  <div class="description">There seems to be a connection issue</div>
+</div>
+</div>
+</div>
 
 <div class="content-overlay"></div> -->
 
-<div class="col l6 content-container">
-  <ul *ngIf="selectedBucketlist">
-    <li *ngFor="let item of selectedBucketlist.items">
-      {{item.name}}
-    </li>
-  </ul>
+<div class="col-md-8 content-container" >
+  <div class="header" *ngIf="selectedBucketlist">
+    <h2>
+      {{selectedBucketlist.name}}
+      <span class="badge header-item-count">{{item_count(selectedBucketlist)}}</span>
+      <span class="glyphicon glyphicon-trash delete-item" (click)="deleteBucketlist(selectedBucketlist)" aria-hidden="true"></span>
+</h2>
+<div class="new-item" *ngIf="selectedBucketlist && newItemForm">
+  <form role="form" (submit)="addItem($event, item.value, selectedBucketlist)">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon" id="sizing-addon1">+</span>
+      <input type="text" #item class="form-control" id="item" placeholder="Add new item" aria-describedby="sizing-addon1">
+    </div>
+  </form>
+</div>
+
+<div id="editItem" class="edit-item" style="" *ngIf="selectedBucketlist && selectedItem">
+  <form role="form" (submit)="editBucketlistItem($event, item.value, selectedBucketlist, selectedItem)">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon" id="sizing-addon1">+</span>
+      <input [(ngModel)]= "selectedItem.name" [ngModelOptions]="{standalone: true}" type="text" #item class="form-control" id="item" value="{{selectedItem.name}}" aria-describedby="sizing-addon1">
+    </div>
+  </form>
+</div>
+  </div>
+  <div class="list-items">
+    <ul *ngIf="selectedBucketlist">
+      <li class="list-item" *ngFor="let item of selectedBucketlist.items" (dblclick)="selectItem(item)">
+        <span class="item-check">
+          <input type="checkbox">
+        </span>
+        {{item.name}}
+         <span class="glyphicon glyphicon-trash delete-item" aria-hidden="true" (click)="deleteItem(item, selectedBucketlist)"></span>
+      </li>
+    </ul>
+  </div>
+
+
+</div>
 </div>

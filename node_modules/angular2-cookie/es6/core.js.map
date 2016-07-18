@@ -1,0 +1,7 @@
+/**
+ * angular2-cookie - Implementation of Angular 1.x $cookies service to Angular 2
+ * @version v1.2.2
+ * @link https://github.com/salemdar/angular2-cookie#readme
+ * @license MIT
+ */
+{"version":3,"sources":["core.ts"],"names":[],"mappings":"OAAO,EAAC,OAAO,EAAC,MAAM,eAAe;OAE9B,EAAC,iBAAiB,EAAE,aAAa,EAAC,MAAM,YAAY;AAE3D,cAAc,YAAY,CAAC;AAE3B,OAAO,MAAM,yBAAyB,GAClC,CAAC,OAAO,CAAC,aAAa,EAAE,EAAC,QAAQ,EAAE,iBAAiB,EAAC,CAAC,CAAC,CAAC","file":"core.js","sourcesContent":["import {provide} from '@angular/core';\r\n\r\nimport {BaseCookieOptions, CookieOptions} from './services';\r\n\r\nexport * from './services';\r\n\r\nexport const ANGULAR2_COOKIE_PROVIDERS: any[] =\r\n    [provide(CookieOptions, {useClass: BaseCookieOptions})];\r\n"],"sourceRoot":"/source/"}

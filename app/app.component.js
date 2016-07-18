@@ -9,24 +9,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
+require('./rxjs-operators');
 var http_1 = require('@angular/http');
-var bucketlist_service_1 = require("./bucketlist.service");
+var core_2 = require('angular2-cookie/core');
+var router_1 = require('@angular/router');
+var login_service_1 = require("./login.service");
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(userService, _cookieService, router) {
+        this.userService = userService;
+        this._cookieService = _cookieService;
+        this.router = router;
     }
-    AppComponent.prototype.get_token = function () {
-        // console.log(LocalStorage.auth_token);
-        // return this.auth_token = localStorage.auth_token;
+    AppComponent.prototype.isloggedIn = function () {
+        var cookie = this.getCookie("auth");
+        if (cookie) {
+            return true;
+        }
+    };
+    AppComponent.prototype.logout = function () {
+        this._cookieService.remove("auth");
+        this.router.navigate(['new']);
+    };
+    AppComponent.prototype.current_user = function () {
+        var cookie = this.getCookie("auth");
+        var valid = JSON.parse(cookie);
+        return valid.user.name;
+    };
+    AppComponent.prototype.getCookie = function (key) {
+        return this._cookieService.get(key);
     };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: "app/app.component.html",
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [http_1.HTTP_PROVIDERS, bucketlist_service_1.BucketlistService]
+            providers: [http_1.HTTP_PROVIDERS, core_2.CookieService, login_service_1.UserService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [login_service_1.UserService, core_2.CookieService, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());

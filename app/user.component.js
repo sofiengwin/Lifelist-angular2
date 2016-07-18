@@ -11,18 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var core_2 = require('@angular/core');
 var http_1 = require('@angular/http');
+var router_1 = require('@angular/router');
+var core_3 = require('angular2-cookie/core');
 var register_service_1 = require("./register.service");
 var UserComponent = (function () {
-    function UserComponent(newUserService) {
+    function UserComponent(newUserService, _cookieService, router) {
         this.newUserService = newUserService;
+        this._cookieService = _cookieService;
+        this.router = router;
     }
     UserComponent.prototype.register = function (event, name, email, password, password_confirmation) {
+        var _this = this;
         event.preventDefault();
         this.newUserService.new_user(name, email, password, password_confirmation).subscribe(function (result) {
             console.log(result);
             if (result) {
-                //  this.router.navigate(['bucketlists']);
-                window.location.href = "http://localhost:3000/bucketlist";
+                _this._cookieService.putObject("auth", result);
+                _this.router.navigate(['bucketlist']);
             }
         });
     };
@@ -30,10 +35,11 @@ var UserComponent = (function () {
         core_1.Component({
             selector: "my-user",
             templateUrl: "app/user.component.html",
-            providers: [http_1.HTTP_PROVIDERS, register_service_1.NewUserService]
+            directives: [router_1.ROUTER_DIRECTIVES],
+            providers: [http_1.HTTP_PROVIDERS, core_3.CookieService, register_service_1.NewUserService]
         }),
         core_2.Injectable(), 
-        __metadata('design:paramtypes', [register_service_1.NewUserService])
+        __metadata('design:paramtypes', [register_service_1.NewUserService, core_3.CookieService, router_1.Router])
     ], UserComponent);
     return UserComponent;
 }());
