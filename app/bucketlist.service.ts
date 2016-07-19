@@ -14,10 +14,6 @@ export class BucketlistService {
   private baseApi = 'https://lifelist-api.herokuapp.com/api/v1/bucketlists/';
   private token = JSON.parse(this.getCookie("auth")).auth_token
 
-  // getBucketlists(){
-  //   return Promise.resolve(BUCKETLISTS);
-  // };
-
   getBucketlists (): Observable<Bucketlist[]> {
     console.log(this.token)
     let cookie = JSON.parse(this.getCookie("auth"))

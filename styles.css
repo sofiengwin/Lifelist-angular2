@@ -149,6 +149,19 @@ span.badge.bucketlist-items-count {
   background: #172433;
 }
 
+/*.input-group-addon:first-child{
+  background: transparent;
+}
+
+.input-group-addon{
+  border: 0;
+}
+
+.input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:first-child>.btn-group:not(:first-child)>.btn, .input-group-btn:first-child>.btn:not(:first-child), .input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group>.btn, .input-group-btn:last-child>.dropdown-toggle{
+  background: transparent;
+  border 0px;
+}*/
+
 /*
 .menu {
     position: relative;
@@ -247,7 +260,7 @@ a {
 
 
 .login {
-  background: antiquewhite;
+  background: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
 }
 
 h1.login-header {
